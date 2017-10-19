@@ -1,0 +1,7 @@
+/.composer/
+/.php_cs.cache
+/composer.lock
+/composer.phar
+/docker-compose.yml
+/php-cs-fixer.phar
+/vendor/

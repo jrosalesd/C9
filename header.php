@@ -58,11 +58,10 @@ $conn->close();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span> 
                     </button>
-                    <a class="navbar-brand" href="home.php">Spotloan</a>
+                    <a class="navbar-brand" href="home.php">Spotloan Community</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="home.php">Home</a></li>
                         <li class="dropdown">
                             <a class="active dropdown-toggle" data-toggle="dropdown" href="#">Email Template
                                 <span class="caret"></span></a>
@@ -106,6 +105,8 @@ $conn->close();
                 </div>
             </div>
         </nav>
+        <br>
+        <br>
         <br>
         <br>
         <body class="container">

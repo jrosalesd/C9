@@ -75,20 +75,39 @@
                                <strong>Profile Type</strong><br>
                                <?php
                                $level= $row['user_sec_profile'];
-                               $q_sec="SELECT * FROM sec_profile";
-                               $q_sec_query=mysqli_query($conn, $q_sec);
-                               $numrows_sec=mysqli_num_rows($q_sec_query);
-                               if($numrows_sec > 0){
-                                   ?>
-                                   <select class="form-control" name="user_sec_profile"> 
-                                       <option value="">Choose One</option>
-                                        <?php
-                                        while($row_sec=mysqli_fetch_array($q_sec_query)){
-                                            ?>
-                                            <option value="<?php echo $row_sec['id']?>" <?php if($level==$row_sec['id']){ echo 'selected="selected"';} ?>><?php echo $row_sec['sec_desc']?></option>
+                               
+                                if($seclevel > $level  ){
+                                   
+                                   $q_sec="SELECT * FROM sec_profile WHERE id='$level'";
+                                   $q_sec_query=mysqli_query($conn, $q_sec);
+                                   $numrows_sec=mysqli_num_rows($q_sec_query);
+                                   if($numrows_sec > 0){
+                                       $row_sec=mysqli_fetch_array($q_sec_query);
+                                       echo $row_sec['sec_desc'];
+                                   } else{
+                                       echo "No Security Assign";
+                                   }
+                               }else {
+                                   if ($seclevel>1) {
+                                       $q_sec="SELECT * FROM sec_profile Where id > 1 ";
+                                   }else {
+                                       $q_sec="SELECT * FROM sec_profile";
+                                   }
+                                   
+                                   $q_sec_query=mysqli_query($conn, $q_sec);
+                                   $numrows_sec=mysqli_num_rows($q_sec_query);
+                                   if($numrows_sec > 0){
+                                       ?>
+                                       <select class="form-control" name="user_sec_profile"> 
+                                           <option value="">Choose One</option>
                                             <?php
-                                        }
-                               }   
+                                            while($row_sec=mysqli_fetch_array($q_sec_query)){
+                                                ?>
+                                                <option value="<?php echo $row_sec['id']?>" <?php if($level==$row_sec['id']){ echo 'selected="selected"';} ?>><?php echo $row_sec['sec_desc']?></option>
+                                                <?php
+                                            }
+                                   }
+                               }
                                ?>
                                    </select>
                             </p>

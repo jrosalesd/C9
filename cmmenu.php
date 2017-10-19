@@ -1546,10 +1546,15 @@ if ($_GET['col'] == 1) {
 								echo "Montly";}elseif($daynum==15){echo "Semi-Montly";}?> payments of $<?php echo number_format($stlpmt,2,".",",");?>. Here’s your payment schedule:
 						</p>
 						<div style="margin-left: 25px;">
-							<table class="table">
+							<table class="table table-bordered">
+								
 								<tr>
-									<td></td>
-									<td>
+									<th>Date</th>
+									<th>Payment</th>
+									<th>Remaining</th>
+								</tr>
+								<tr>
+									<td class="text-right" colspan=2>
 										Initial Balance
 									</td>
 									<td>
@@ -1557,11 +1562,6 @@ if ($_GET['col'] == 1) {
 										echo "$".number_format($stl,2,".",",");
 										?>
 									</td>
-								</tr>
-								<tr>
-									<th>Date</th>
-									<th>Payment</th>
-									<th>Remaining</th>
 								</tr>
 								<?php
 								if ($daynum == 15) {
@@ -1699,8 +1699,14 @@ if ($_GET['col'] == 1) {
 										</label>
 										<input class="form-control" type="text" id="disc">
 									</div>
+									<div class="form-group">
+										<label for="pmtnums">
+											Number of Payments
+										</label>
+										<input class="form-control" type="text" id="pmtnums">
+									</div>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-9">
 									
 									<p id="stl0"></p>
 								</div>
@@ -1725,7 +1731,7 @@ if ($_GET['col'] == 1) {
 										</label>
 										<select class="form-control" name="daynum" required>
 											<option value="14" <?php if($_GET['daynum']==14){echo "selected";}?>>Bi-Weekly</option>
-											<option value="15" <?php if($_GET['daynum']==15){echo "selected";}?>>Semi-Montly</option>
+											<option value="15" <?php if($_GET['daynum']==15){echo "selected";}?>>Semi-Monthly</option>
 											<option value="30" <?php if($_GET['daynum']==30){echo "selected";}?>>Monthly</option>
 										</select>
 									</div>
@@ -1739,9 +1745,9 @@ if ($_GET['col'] == 1) {
 									</div>
 									<div class="form-group">
 										<label for="pmtnum">
-											Number if payments:
+											Number of payments:
 										</label>
-										<input class="form-control" type="text" name="pmtnum" value="<?php echo $_GET['pmtnum']; ?>" required/>
+										<input class="form-control" type="text" name="pmtnum" id="pmtnum1" value="<?php echo $_GET['pmtnum']; ?>" required/>
 									</div>
 									<div class="form-group">
 										<label for="stl">
@@ -1761,17 +1767,25 @@ if ($_GET['col'] == 1) {
 						<script>
 							document.getElementById('bal').onchange=function() {settlement()};
 							document.getElementById('disc').onchange=function() {settlement()};
+							document.getElementById('pmtnums').onchange=function() {settlement()};
 
 						    function settlement() {
 						        var bal = document.getElementById('bal').value;
 						        var disc = document.getElementById('disc').value;
+						        var pmtnum = document.getElementById('pmtnums').value;
 						        
 						        var stl =bal*(disc/100);
+						        var pmts = stl/pmtnum;
 						    
 						        var x = document.getElementById('stl0');
 						        var y = document.getElementById('stl');
-						        x.innerHTML = disc+"% Settlement would be in the Amout of $" + stl.toFixed(2);
+						        var z = document.getElementById('pmtnum1');
+						        
+						        x.innerHTML = disc+"% Settlement would be in the Amout of $" + stl.toFixed(2)
+						        +"<br>"
+						        +"This can be solved in " + pmtnum + " payments of $" + pmts.toFixed(2);
 						        y.value = stl.toFixed(2);
+						        z.value = pmtnum;
 						    }
 						</script>
 						<?php

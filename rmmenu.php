@@ -49,7 +49,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);	
+						$brwName = htmlspecialchars(trim($_GET['brwName']));	
 						$payoffDate = date_create($_GET['payoffDate']);
 						$payoffAmt = $_GET['payoffAmt'];
 						$bankname = $_GET['bankname'];
@@ -192,7 +192,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$pmtAmt = $_GET['pmtAmt'];
 						$pmtdate = date_create($_GET['pmtdate']);
 						$bankname = $_GET['bankname'];
@@ -240,7 +240,7 @@ if ($_GET['cs'] == 1) {
 						if ($_GET['additional'] == 'on') {
 							?>
 							<p>
-								<?php echo $_GET['additionalnote']?>
+								<?php echo nl2br(htmlspecialchars($_GET['additionalnote']))?>
 							</p>
 							<?php
 						}
@@ -302,15 +302,28 @@ if ($_GET['cs'] == 1) {
 								</div>
 							</div>
 							<div class="row">
-								<div class="checkbox">
-									<label for="pmtnote">
-										<input type="checkbox"  id="pmtnote" name="pmtnote"/><b>Next Payment Notice</b>
-										<br>
+								<div class="col-md-3">
+									<div class="checkbox">
+										<label for="pmtnote">
+									<input type="checkbox"  id="pmtnote" name="pmtnote"/><b>Next Payment Notice</b>
+									</label>
+									</div>
+									<div class="checkbox">
+									<label for="">
 										<input type="checkbox"  id="additional" name="additional"/><b>Other Notes</b>
 									</label>
+									</div>
 								</div>
-								<g id="pmtnotebody"></g>
-								<g id="additionalnote"></g>
+								<div class="col-md-9">
+									<div class="row">
+										<div class="col-md-6">
+											<g id="pmtnotebody"></g>
+										</div>
+										<div class="col-md-6">
+											<g id="additionalnote"></g>
+										</div>
+									</div>
+								</div>
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
@@ -367,7 +380,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$nextpmtdate = date_create($_GET['nextpmtdate']);
 						$nextpmtamt = $_GET['nextpmtamt'];
 						$pmtmethod = $_GET['pmtmethod']
@@ -517,7 +530,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$payoffdate = date_create($_GET['payoffdate']);
 						$payoffamt = $_GET['payoffam'];
 						$nextpmtdate = date_create($_GET['nextpmtdate']);
@@ -659,7 +672,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$currbal = $_GET['currbal'];
 						$payoffdate = date_create($_GET['payoffdate']);
 						$payoffamt = $_GET['payoffam'];
@@ -812,7 +825,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$pmtAmt = $_GET['pmtAmt'];
 						$pmtdate = date_create($_GET['pmtdate']);
 						$bankname = $_GET['bankname'];
@@ -951,7 +964,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						$pmtAmt = $_GET['pmtAmt'];
 						$pmtdate = date_create($_GET['pmtdate']);
 						$pmtnum = $_GET['pmtnum'];
@@ -1119,11 +1132,11 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Second & Subsequent Request for Deferral Email
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>When a customer emails their RM or help@ asking for a second & subsequent payment deferral, an agent can generate this response email.
 							<br>
 							<b>Template: </b>
 							<br>
@@ -1135,7 +1148,13 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$pmtAmt = $_GET['pmtAmt'];
+						$pmtdate = date_create($_GET['pmtdate']);
+						$pmtnum = $_GET['pmtnum'];
+						$pmtfreq = $_GET['pmtfreq'];
+						$resamt = $_GET['resamt'];
+						$ressdate = date_create($_GET['ressdate']);
 						
 						?>
 						<div>
@@ -1150,9 +1169,31 @@ if ($_GET['cs'] == 1) {
 						<div>
 						<!-- Email Temaplate -->
 						<p>
+							<strong>Subject:</strong> Spot your savings! Your payment options
+						</p>
+						<br>
+						<p>
 							Hi <?php echo $brwName;?>,
 						</p>
 						<br>
+						<p>
+							Thanks for working with me. As you know, making changes to your Spotloan gets expensive fast – it can extend the life of your loan and add more interest. My goal is to help you save money. Check out your options and let me know what you want to do. I’ll wait to make changes until I hear back from you
+						</p>
+						<p>Options:<p>
+					    <div style="margin-left: 75px;">
+							<p><b>1) Pay a smaller amount</b> on <?php echo date_format($pmtdate,"l, F jS, Y"); ?>, when your payment is due. Most customers try to make half the payment amount, That would be $<?php echo number_format(($pmtAmt/2),2,".",","); ?>.</p>
+							
+							<p><b>2) Make up your payment at a later time.</b> . Every day you accrue interest. The longer you wait the more expensive this option becomes. I’m here to work with you. Call me at 1(888) 681-6811 to set this up.</p>
+							
+							<p>
+					      		<b>3) Change your payment size.</b> If you want to miss this next payment, but don’t want your interest to get away from you, we can increase your payment amount to keep you on track. This usually costs about $10 more each payment.
+					      		<br>
+					      		We could set you up with <?php echo $pmtnum." ".$pmtfreq;?> payments of  <?php echo number_format($resamt,2,".",","); ?> starting on <?php echo date_format($ressdate,"l, F jS, Y"); ?>.
+					      	<p>
+					    </div>
+					
+					    <p>Please get back to me right away. I need at least <b><u>2 business days</u></b> before your payment is due to make these changes.</p>
+					    <br>
 						<?php
 						include('includes/signature.inc.php');
 						?>	
@@ -1169,7 +1210,7 @@ if ($_GET['cs'] == 1) {
 							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
 							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="brwName">
 											Borrower´s First Name:
@@ -1177,8 +1218,49 @@ if ($_GET['cs'] == 1) {
 										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
 									</div>
 								</div>
-								<div class="col-md-5"></div>
-								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="pmtdate">
+										Next Payment Date:
+										</label>
+										<input class="form-control" type="date" name="pmtdate" required/>
+									</div>
+									<div class="form-group">
+										<label for="pmtAmt">
+										Regular Payment Amount:
+										</label>
+										<input class="form-control" type="number" step="0.01" name="pmtAmt" required/>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<h4 class="text-center">Restructure Option</h4>
+									<div class="form-group">
+										<label for="pmtnum">Number Of Payments</label>
+										<input class="form-control" type="number" name="pmtnum" required/>
+									</div>
+									<div class="form-group">
+										<label for="pmtfreq">
+											Payment Frequency:
+										</label>
+										<select class="form-control" name="pmtfreq" required>
+											<option value="Bi-Weekly">Bi-Weekly</option>
+											<option value="Semi-Montly">Semi-Monthly</option>
+											<option value="Monthly">Monthly</option>
+										</select>
+									</div>
+									<div class="form-group">
+									    <label for="resamt">
+									        Restructure Payment Amount:
+									    </label>
+									    <input class="form-control" type="number" step="0.01" name="resamt" required/>
+									</div>
+									<div class="form-group">
+										<label for="ressdate">
+										Restructure Payment Date:
+										</label>
+										<input class="form-control" type="date" name="ressdate" required/>
+									</div>
+								</div>
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
@@ -1221,15 +1303,13 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Deferral Confirmation Email
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>When an agent makes a deferral and selects to send this confirmation email. 
 							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
+							<b>Action: </b>Manual - Agent to edit and send
 						</h5>
 					</font>
                 </div>
@@ -1237,7 +1317,12 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$approxint = $_GET['approxint'];
+						//next payment
+						$pmtnote = $_GET['pmtnote'];
+						$nextpmtdate = date_create($_GET['nextpmtdate']);
+						$nextpmtamt = $_GET['nextpmtamt'];
 						
 						?>
 						<div>
@@ -1252,8 +1337,39 @@ if ($_GET['cs'] == 1) {
 						<div>
 						<!-- Email Temaplate -->
 						<p>
+							<strong>Subject:</strong> <?php echo $brwName;?>, your Spotloan is updated
+						</p>
+						<br>
+						
+						<p>
 							Hi <?php echo $brwName;?>,
 						</p>
+						
+						<p>
+							Thanks for contacting me. To confirm, we will not be taking out your next scheduled payment.
+						</p>
+					    <p>
+					    	Deferring your payment increases your total amount due, it could add up to  $<?php echo number_format($approxint,2,".",","); ?> in extra interest. You can make up this payment at any time if you want to save some money.
+					    <p>
+					    
+						<?php
+						if ($pmtnote == 'on') {
+							?>
+							<p>
+								As a friendly reminder, your next schedule payment of $<?php echo number_format($nextpmtamt,2,".",",");?> will be due on <?php echo date_format($nextpmtdate,"l F jS, Y");?>.
+							</p>
+							<?php
+						}
+						?>
+						<?php
+						if ($_GET['additional'] == 'on') {
+							?>
+							<p>
+								<?php echo nl2br(htmlspecialchars($_GET['additionalnote']))?>
+							</p>
+							<?php
+						}
+						?>
 						<br>
 						<?php
 						include('includes/signature.inc.php');
@@ -1279,8 +1395,40 @@ if ($_GET['cs'] == 1) {
 										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
 									</div>
 								</div>
-								<div class="col-md-5"></div>
-								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="approxint">
+											Approximate Interest for Defering:
+										</label>
+										<input class="form-control" type="number" step="0.01" name="approxint" required/>
+									</div>
+								</div>
+								<div class="col-md-4"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="checkbox">
+										<label for="pmtnote">
+									<input type="checkbox"  id="pmtnote" name="pmtnote"/><b>Next Payment Notice</b>
+									</label>
+									</div>
+									<div class="checkbox">
+									<label for="">
+										<input type="checkbox"  id="additional" name="additional"/><b>Other Notes</b>
+									</label>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="row">
+										<div class="col-md-6">
+											<g id="pmtnotebody"></g>
+										</div>
+										<div class="col-md-6">
+											<g id="additionalnote"></g>
+										</div>
+									</div>
+								</div>
+									
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
@@ -1323,15 +1471,13 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Deferral Window Missed Email
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>When a customer contacts their agent and misses the two-day window.
 							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
+							<b>Action: </b> Manual - Agent to edit and send
 						</h5>
 					</font>
                 </div>
@@ -1339,7 +1485,13 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$pmtAmt = $_GET['pmtAmt'];
+						$pmtdate = date_create($_GET['pmtdate']);
+						//next payment
+						$pmtnote = $_GET['pmtnote'];
+						$nextpmtdate = date_create($_GET['nextpmtdate']);
+						$nextpmtamt = $_GET['nextpmtamt'];
 						
 						?>
 						<div>
@@ -1354,9 +1506,38 @@ if ($_GET['cs'] == 1) {
 						<div>
 						<!-- Email Temaplate -->
 						<p>
+							<strong>Subject:</strong> <?php echo $brwName;?>, we missed your 2-day window
+						</p>
+						<br>
+						
+						<p>
 							Hi <?php echo $brwName;?>,
 						</p>
 						<br>
+						
+						<p>Thanks for contacting me. As a reminder, we need at least 2 business days to make payment changes. That means I won’t be able to adjust your payment of $<?php echo number_format($pmtAmt,2,".",","); ?> that’s due on <?php echo date_format($pmtdate,"l, F jS, Y"); ?>.
+						</p>
+						
+						<?php
+                        if ($pmtnote == 'on') {
+                            ?>
+                            <p>
+                                As a friendly reminder, your next schedule payment of $<?php echo number_format($nextpmtamt,2,".",",");?> will be due on <?php echo date_format($nextpmtdate,"l, F jS, Y");?>.
+                            </p>
+                            <?php
+                        }
+                        ?>
+                        <?php
+                        if ($_GET['additional'] == 'on') {
+                            ?>
+                            <p>
+                                <?php echo nl2br(htmlspecialchars($_GET['additionalnote']))?>
+                            </p>
+                            <?php
+                        }
+                        ?>
+    					<p>Let me know if you want to connect about this or talk about your future payments.</p>
+                        <br>
 						<?php
 						include('includes/signature.inc.php');
 						?>	
@@ -1373,7 +1554,7 @@ if ($_GET['cs'] == 1) {
 							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
 							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="brwName">
 											Borrower´s First Name:
@@ -1381,8 +1562,45 @@ if ($_GET['cs'] == 1) {
 										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
 									</div>
 								</div>
-								<div class="col-md-5"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+		                            <label for="pmtdate">
+		                                Payment Date:
+		                            </label>
+		                            <input class="form-control" type="date" name="pmtdate" required/>
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="pmtAmt">
+		                                Payment Amount:
+		                            </label>
+		                            <input class="form-control" type="number" step="0.01" name="pmtAmt" required/>
+		                        </div>
+								</div>
 								<div class="col-md-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="checkbox">
+										<label for="pmtnote">
+									<input type="checkbox"  id="pmtnote" name="pmtnote"/><b>Next Payment Notice</b>
+									</label>
+									</div>
+									<div class="checkbox">
+									<label for="">
+										<input type="checkbox"  id="additional" name="additional"/><b>Other Notes</b>
+									</label>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="row">
+										<div class="col-md-6">
+											<g id="pmtnotebody"></g>
+										</div>
+										<div class="col-md-6">
+											<g id="additionalnote"></g>
+										</div>
+									</div>
+								</div>
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
@@ -1425,15 +1643,13 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						4 Business Days Reminder Emai
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>4 business days before a payment is auto-scheduled.
 							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
+							<b>Action: </b>Manual - Agent to edit and send
 						</h5>
 					</font>
                 </div>
@@ -1441,7 +1657,9 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$pmtAmt = htmlspecialchars($_GET['pmtAmt']);
+						$pmtdate = date_create($_GET['pmtdate']);
 						
 						?>
 						<div>
@@ -1456,7 +1674,17 @@ if ($_GET['cs'] == 1) {
 						<div>
 						<!-- Email Temaplate -->
 						<p>
+							<strong>Subject:</strong>Spotloan payment of $<?php echo number_format($pmtAmt,2,".",","); ?> due on <?php echo date_format($pmtdate,"l, F jS, Y"); ?>
+						</p>
+						<br>
+						
+						<p>
 							Hi <?php echo $brwName;?>,
+						</p>
+						<br>
+						
+						<p>
+							I just want to remind you that your Spotloan payment of $<?php echo number_format($pmtAmt,2,".",","); ?> is scheduled for <?php echo date_format($pmtdate,"l, F jS, Y"); ?>. Please let me know right away if you have any questions.
 						</p>
 						<br>
 						<?php
@@ -1475,7 +1703,7 @@ if ($_GET['cs'] == 1) {
 							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
 							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="brwName">
 											Borrower´s First Name:
@@ -1483,8 +1711,21 @@ if ($_GET['cs'] == 1) {
 										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
 									</div>
 								</div>
-								<div class="col-md-5"></div>
-								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+			                            <label for="pmtdate">
+			                                Payment Date:
+			                            </label>
+			                            <input class="form-control" type="date" name="pmtdate" required/>
+			                        </div>
+			                        <div class="form-group">
+			                            <label for="pmtAmt">
+			                                Payment Amount:
+			                            </label>
+			                            <input class="form-control" type="number" step="0.01" name="pmtAmt" required/>
+                    				</div>
+								</div>
+								<div class="col-md-4"></div>
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
@@ -1527,15 +1768,13 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Payment Confirmation Email
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>If requested by borrower.
 							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
+							<b>Action: </b> Manual - Agent to edit and send
 						</h5>
 					</font>
                 </div>
@@ -1543,7 +1782,12 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$pmtAmt = htmlspecialchars($_GET['pmtAmt']);
+						$pmtdate = date_create($_GET['pmtdate']);
+                        $bankname = nl2br(htmlspecialchars($_GET['bankname']));
+                        $lastfour = htmlspecialchars($_GET['lastfour']);
+                        $pmtconf = htmlspecialchars($_GET['pmtconf']);
 						
 						?>
 						<div>
@@ -1558,9 +1802,31 @@ if ($_GET['cs'] == 1) {
 						<div>
 						<!-- Email Temaplate -->
 						<p>
+							<strong>Subject:</strong> $<?php echo number_format($pmtAmt,2,".",","); ?> Spotloan payment confirmation
+						</p>
+						<br>
+						<p>
 							Hi <?php echo $brwName;?>,
 						</p>
 						<br>
+						<p><b>Payment Receipt</b></p>
+						<?php
+						if($_GET['ach'] == "on"){
+							?>
+							<p>This is an email confirmation that you made a payment of $<?php echo number_format($pmtAmt,2,".",","); ?> on <?php echo date_format($pmtdate,"l, F jS, Y"); ?>, from your <?php echo $bankname;?> account ending in <?php echo $pmtconf;?>. Thanks!</p>
+							<?php
+						}elseif ($_GET['dc'] == "on") {
+							?>
+							<p>This is an email confirmation that you made a one time payment in the amount of $<?php echo number_format($pmtAmt,2,".",","); ?> today, <?php echo date_format($pmtdate,"F jS, Y"); ?>, with your debit card. Thanks!</p>
+							
+							<p>
+								Your confirmation ID is: <?php echo $pmtconf;?>
+							</p>
+							<?php
+						}
+						?>
+						<p>I really appreciate having you as a customer!</p>
+						<br />
 						<?php
 						include('includes/signature.inc.php');
 						?>	
@@ -1576,8 +1842,22 @@ if ($_GET['cs'] == 1) {
 						<form class="fom form-vertical" method="get">
 							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
 							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
+							<div>
+								<div>
+									<div class="checkbox">
+										<label for="dc">
+											<input type="checkbox"  id="dc" name="dc"/><b>Check if payment was via Debit Card</b>
+										</label>
+									</div>
+									<div class="checkbox">
+										<label for="ach">
+											<input type="checkbox"  id="ach" name="ach"/><b>Check if payment is via ACH</b>
+										</label>
+									</div>
+								</div>
+							</div>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="brwName">
 											Borrower´s First Name:
@@ -1585,13 +1865,95 @@ if ($_GET['cs'] == 1) {
 										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
 									</div>
 								</div>
-								<div class="col-md-5"></div>
-								<div class="col-md-2"></div>
+								<div id="landform"></div>
 							</div>
 							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
 								Generate Email
 							</button>
 						</form>
+						<script type="text/javascript">
+							//payment confirmation
+							//ACH payment notification
+							document.getElementById('ach').onclick = function(){achpmt();};
+							
+							function achpmt(){
+								var formLanding = document.getElementById('landform');
+								var status = document.getElementById('ach').checked;
+								
+								if (status){
+									formLanding.innerHTML = 
+									'<div class="col-md-4">'
+										+'<div class="form-group">'
+											+'<label for="pmtdate">'
+												+'Payment Date:'
+											+'</label>'
+											+'<input class="form-control" type="date" name="pmtdate" required/>'
+										+'</div>'
+										+'<div class="form-group">'
+											+'<label for="pmtAmt">'
+												+'Payment Amount:'
+											+'</label>'
+											+'<input class="form-control" type="number" step="0.01" name="pmtAmt" required/>'
+										+'</div>'
+									+'</div>'
+									+'<div class="col-md-4">'
+										+'<div class="form-group">'
+											+'<label for="bankname">'
+												+'Bank Name:'
+											+'</label>'
+											+'<input class="form-control" type="text" name="bankname" required/>'
+										+'</div>'
+										+'<div class="form-group">'
+											+'<label for="lastfour">'
+												+'Last 4 Bank Account:'
+											+'</label>'
+											+'<input class="form-control" type="text" maxlength="4"  name="lastfour" required/>'
+										+'</div>'
+									+'</div>'
+									;
+								}else{
+									formLanding.innerHTML = '<div id="landform"></div>';
+								}
+							}
+							
+							//DC payment notification
+							document.getElementById('dc').onclick = function(){dcpmt();};
+							
+							function dcpmt(){
+								var formLanding = document.getElementById('landform');
+								var status = document.getElementById('dc').checked;
+								
+								if (status){
+									formLanding.innerHTML = 
+									'<div class="col-md-4">'
+										+'<div class="form-group">'
+											+'<label for="pmtdate">'
+												+'Payment Date:'
+											+'</label>'
+											+'<input class="form-control" type="date" name="pmtdate" required/>'
+										+'</div>'
+										+'<div class="form-group">'
+											+'<label for="pmtAmt">'
+												+'Payment Amount:'
+											+'</label>'
+											+'<input class="form-control" type="number" step="0.01" name="pmtAmt" required/>'
+										+'</div>'
+									+'</div>'
+									+'<div class="col-md-4">'
+										+'<div class="form-group">'
+											+'<label for="pmtconf">'
+												+'DC Payment Confirmation ID:'
+											+'</label>'
+											+'<input class="form-control" type="text" name="pmtconf" required/>'
+										+'</div>'
+									+'</div>'
+									;
+								}else{
+									formLanding.innerHTML = '<div id="landform"></div>';
+								}
+							}
+							
+						</script>
 						<?php
 					}
 					?>
@@ -1629,8 +1991,9 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Missed payment <small>(NSF)</small>
 					</h2>
+					<h4>(For the less than 1% who will still miss their payment)</h4>
 					<font color="red">
 						<h5>
 							<b>Generate: </b>Copy and Paste 
@@ -1645,7 +2008,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -1747,7 +2110,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -1849,7 +2212,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -1951,7 +2314,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2048,7 +2411,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2148,7 +2511,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2250,7 +2613,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2352,7 +2715,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2454,7 +2817,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2556,7 +2919,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2658,7 +3021,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2760,7 +3123,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2862,7 +3225,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -2964,7 +3327,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3061,7 +3424,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3161,7 +3524,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3263,7 +3626,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3365,7 +3728,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3467,7 +3830,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3569,7 +3932,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3671,7 +4034,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3773,7 +4136,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3875,7 +4238,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -3977,7 +4340,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4079,7 +4442,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4181,7 +4544,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4283,7 +4646,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4385,7 +4748,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4487,7 +4850,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4584,7 +4947,7 @@ if ($_GET['cs'] == 1) {
                     <?php
 					if($_GET['set'] == "on"){
 						//variables to complete template
-						$brwName = trim($_GET['brwName']);
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
 						
 						?>
 						<div>
@@ -4805,48 +5168,55 @@ include 'footer.php';
 ?>
 <script>
 	//next pmt script
-	document.getElementById('pmtnote').onclick = function(){nextpmt()};
-	
+	document.getElementById('pmtnote').onclick = function(){nextpmt();};
 	function nextpmt(){
 		var pmtbody = document.getElementById('pmtnotebody');
-		pmtbody.innerHTML =
-			"<p class='text-center'>Next Payment Details</p>"
-			+"<div class='col-md-4' id='pmtnotebody'>"
-				+"<div class='form-group'>"
+		var status = document.getElementById('pmtnote').checked;
+		if(status){
+			pmtbody.innerHTML =
+				"<div class='form-group' id='pmtnote'>"
 					+"<label for='nextpmtdate'>"
 						+"Next Payment Date"
 					+"</label>"
 					+"<input class='form-control' type='date' id='nextpmtdate' name='nextpmtdate' required/>"
 				+"</div>"
-			+"</div>"
-			
-			+"<div class='col-md-4'>"
 				+"<div class='form-group'>"
 					+"<label for='nextpmtamt'>"
 						+"Next Payment Date"
 					+"</label>"
 					+"<input class='form-control' type='number' step='0.01' id='nextpmtamt' name='nextpmtamt' required/>"
 				+"</div>"
-			+"</div>"
-			
-			//+"<div class='col-md-4'>"
-			//	+
-			//+"</div>"
+				;
+		}else {
+			pmtbody.innerHTML = 
+			'<div class="col-md-6">'
+				+'<g id="pmtnotebody"></g>'
+			+'</div>'
 			;
+		}
+			
 			
 	}
-	document.getElementById('additional').onclick = function(){additionalnote()}
+	document.getElementById('additional').onclick = function(){additionalnote();};
 	function additionalnote(){
 		var notebody = document.getElementById('additionalnote');
-		notebody.innerHTML=
-		"<p class='text-center'>Additional Inforamtion</p>"
-		+"<div class='form-group'>"
-			+"<label for='nextpmtdate'>"
-				+"Additional notes"
-			+"</label>"
-			+"<textarea name='nextpmtdate' class='form-control' rows='6' col='6' id='nextpmtdate'></textarea>"
-		+"</div>"	
-		;
+		var status = document.getElementById('additional').checked;
+		if(status){
+			notebody.innerHTML=
+			"<div class='form-group' id='additionalnote'>"
+				+"<label for='additionalnote'>"
+					+"Additional notes"
+				+"</label>"
+				+"<textarea name='additionalnote' class='form-control' rows='6' col='6' id='nextpmtdate'></textarea>"
+			+"</div>"	
+			;
+		}else {
+			notebody.innerHTML=
+			'<div class="col-md-6">'
+				+'<g id="additionalnote"></g>'
+			+'</div>'
+			;
+		}
 	}
 	
 </script>
