@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$pass_status = 1;
+$pass_status = 0;
 if (isset($_GET['id'])) {
     include 'dbh.inc.php';
     $password= "Honduras".date("Y");

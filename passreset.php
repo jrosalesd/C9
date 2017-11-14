@@ -43,8 +43,8 @@
                                 <input class="form-control col-md-3" type="password" placeholder="Repeat Password" name="user_pass_repeat" required>
                             </div>
                             <input class="btn btn-default" type="submit" name="pass_change" value="Change Password">
+                            <a class="btn btn-danger" href="includes/logout.inc.php"><span class="glyphicon glyphicon-log-out"> Logoff</span></a>
                         </form>
-                        <p class="text-center" id="today"></p>
                     </div>
                 </div>
                 <div class="col-md-4"></div>

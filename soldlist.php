@@ -42,8 +42,8 @@ $msg=$_GET['msg'];
             </div>
         </div>
         <div class="jumbotron">
-            <div class="table-responsive">
-                <table class="table table striped">
+            <div>
+                <table class="table table-responsive">
                     <tr>
                         <th>Loan ID</th>
                         <th>Buyer Code</th>
@@ -56,7 +56,7 @@ $msg=$_GET['msg'];
                         if(isset($_GET['search'])){
                             if(!empty($_REQUEST['term'])){
                                 $term = trim(mysqli_real_escape_string($conn,$_GET['term']));
-                                $slq = "SELECT soldlist.Loan_ID, soldlist.Buyer, debtsalebuyers.Name, debtsalebuyers.PhoneNumber, soldlist.Sold_Date FROM soldlist, debtsalebuyers WHERE soldlist.Buyer = debtsalebuyers.Code AND soldlist.Loan_ID LIKE '%$term%' OR soldlist.Buyer LIKE '%$term%' OR debtsalebuyers.Name LIKE '%$term%'";
+                                $slq = "SELECT soldlist.Loan_ID, soldlist.Buyer, debtsalebuyers.Name, debtsalebuyers.PhoneNumber, soldlist.Sold_Date FROM soldlist, debtsalebuyers WHERE soldlist.Buyer = debtsalebuyers.Code AND soldlist.Loan_ID LIKE '%$term%' OR soldlist.Buyer LIKE '%$term%' OR debtsalebuyers.Name LIKE '%$term%' OR soldlist.Sold_Date LIKE '%$term%'";
                                 $slq_result = mysqli_query($conn,$slq);
             
                                 if(mysqli_num_rows($slq_result) != 0){

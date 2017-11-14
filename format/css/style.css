@@ -176,7 +176,7 @@ small {
 }
 
 td {
-  text-align: center;
+  text-align: left;
 }
 
 .timezone_table{
@@ -271,12 +271,7 @@ table {
   font-weight: bold;
   text-align: center;
 }
-thead th {
-  text-align: center;
-  text-align: middle;
-  border: 2px solid black;
-  height: 30px;
-}
+
 
 .table-state-edit button {
   width: 50px;
@@ -289,4 +284,16 @@ td {
 
 .btn-close div {
   align-self: flex-end;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; } /* Default */
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.table-test td {
+  text-align: left;
+}
+.col-md-3 span {
+  text-align: justify;
 }

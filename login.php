@@ -10,9 +10,19 @@ $errorMsg = $_GET['login'];
 <html>
     <head>  
         <meta charset ="utf-8">
-        <link rel="stylesheet" type="text/css" href="format/css/bootstrap.css"/>
-        <link rel="stylesheet" type="text/css" href="format/css/bootstrap.min.css"/>
+       <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--font Awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Google Icon-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
         <link rel="stylesheet" type="text/css" href="format/css/style.css"/>
+        
         <script src="format/js/script.js" type="text/javascript"></script>
         <script src="format/js/bootstrap.js" type="text/javascript"></script>       
         <title>Login Page</title>
@@ -42,18 +52,17 @@ $errorMsg = $_GET['login'];
                             </div>                     
                         </form>
                     </div>
-                    <div class="text-center">
-                        <p>
-                            <script>
-                                var date = new Date();
-                                document.write("&copy;Julio R 2015-"+date.getFullYear());
-                            </script>
-                        </p>
-                        <p class="text-center" id="today"></p>
-                    </div>
                 </div>
+                <div class="col-md-4"></div> 
             </div>
-            <div class="col-md-4"></div>            
+            <div class="text-center">
+                <p>
+                    <script>
+                        var date = new Date();
+                        document.write("&copy;Julio R 2015-"+date.getFullYear());
+                    </script>
+                </p>
+            </div>           
         </div>
     </body>
 </html>
