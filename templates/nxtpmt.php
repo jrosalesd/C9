@@ -64,7 +64,6 @@ Hi <?php echo $brwName;?>,
 -------------------------
 
 
-
 <?php echo $bankname;?>
 bank information
 
