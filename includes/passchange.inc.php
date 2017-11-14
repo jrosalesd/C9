@@ -11,7 +11,7 @@ error_reporting (E_ALL ^ E_NOTICE);
         include "dbh.inc.php";
         $pass = mysqli_real_escape_string($conn, $_POST['user_pass']);
         $pass_retype = mysqli_real_escape_string($conn, $_POST['user_pass_repeat']);
-        $pass_status = 0;
+        $pass_status = 1;
         
         if ($pass===$pass_retype) {
             $pwhashed = password_hash($pass,PASSWORD_DEFAULT);

@@ -9,6 +9,7 @@
     $userstatus = $_SESSION['status'];
     $seclevel = $_SESSION['usersec'];
     $usertimezone =  $_SESSION['timezone'];
+    $pass_status = $_SESSION['pass_status'];
     if(isset($_POST['log_in'])){
            include 'dbh.inc.php';
         $user_name = mysqli_real_escape_string($conn, $_POST['username']);
@@ -31,7 +32,7 @@
                    if ($user_status == 0) {
                        header("Location: ../login.php?login=This username is inactive, Contact your Administrator.");
                        exit();
-                    }elseif($passreset == 1){
+                    }elseif($passreset == 0){
                         $_SESSION['uid'] = $row['user_id'];
                         $_SESSION['SysName'] = $row['user_shortname'];
                         header("Location: ../passreset.php");
@@ -51,6 +52,7 @@
                             $_SESSION['username'] = $row['user_uid'];
                             $_SESSION['status'] = $row['user_status'];
                             $_SESSION['usersec'] = $row['user_sec_profile'];
+                            $_SESSION['pass_status'] = $row["user_pass_status"];
                             header("Location: ../home.php");
                             exit();
                        }

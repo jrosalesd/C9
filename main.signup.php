@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">New User</button>
+        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;"> <span class="fa fa-user-plus"></span> New User</button>
         
         <div class="error0">
             <p>
@@ -92,6 +92,7 @@
                     <input type="password" placeholder="Repeat Password" name="user_pass_repeat" required>
             
                     <input type="hidden" name="user_status" value="1"/>
+                    <input type="hidden" name="pass_status" value="0"/>
 
                     <div class="clearfix">
                         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>

@@ -24,7 +24,7 @@
                    </p>
                    <p>
                        <strong>Email Address:</strong><br>
-                       <input class="form-control" type="text" name="user_email" value="<?php echo $row['user_shortname']; ?>"/>
+                       <input class="form-control" type="text" name="user_email" value="<?php echo $row['user_email']; ?>"/>
                        
                    </p>
                    <p>
@@ -120,7 +120,7 @@
                                 $numrows_time_zones=mysqli_num_rows($q_time_zones_query);
                                 if($numrows_time_zones > 0){
                                     ?>
-                                    <select class="form-control" name="user_timezone" id="user_timezone" required> 
+                                    <select class="form-control" name="user_timezone" id="user_timezone"> 
                                         <option value="">Choose One</option>
                                         <?php
                                         while($row_time_zones=mysqli_fetch_array($q_time_zones_query)){

@@ -210,6 +210,7 @@ include 'header.php';
                                                 $conn->close();
                                                 ?>
                                                 <option value="99" <?php if($_GET['apr'] == 99){ echo "selected=selected";}?>>99%</option>
+                                                <option value="36" <?php if($_GET['apr'] == 36){ echo "selected=selected";}?>>36%</option>
                                             </select>
                                         </div>
                                     </div>
@@ -276,12 +277,14 @@ include 'header.php';
                                         <br><b>Principal Balance:</b> <?php if(empty($pri_bal)){echo "Enter Principal Balance";}else{ echo "$".number_format($pri_bal,2,".",",");}?> 
                                         
                                         <br><b>Interest rate:</b> <?php echo $rate*100;?>%
-                                        <br><b>Debit Card Payoff:</b> $<?php echo number_format($brw_pay,2,".",",");?>
+                                    </p>
+                                    <p>
+                                        <u><b>Debit Card Payoff:</b> $<?php echo number_format($brw_pay,2,".",",");?></u>
                                         <br><b>Borrower will Save:</b> $<?php echo number_format($brw_save,2,".",",");?>
                                     </p>
                                     <p>
                                         <b><u>Read This Verbatim</u></b><br>
-                                        By providing me with your debit card information, you represent that you are the owner of the debit card and you authorize Spotloan to electronically process a one-time debit card payment in the amount of <b>$<?php echo number_format($brw_pay,2,".",",");?> Today, <?php echo date("l, F d, Y h:m:s a");?></b>. Do you understand and agree with this statement?
+                                        By providing me with your debit card information, you represent that you are the owner of the debit card and you authorize Spotloan to electronically process a one-time debit card payment in the amount of <b>$<?php echo number_format($brw_pay,2,".",",");?> Today, <?php echo date("l, F d, Y");?></b>. Do you understand and agree with this statement?
                                     </p>
                                 <?php    
                                 }

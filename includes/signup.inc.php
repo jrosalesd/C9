@@ -12,6 +12,7 @@ if (isset($_POST['usercreate'])) {
     $user_pass_repeat = mysqli_real_escape_string($conn, $_POST['user_pass_repeat']);
     $user_status = mysqli_real_escape_string($conn, $_POST['user_status']);
     $user_timezone = mysqli_real_escape_string($conn, $_POST['user_timezone']);
+    $pass_status = mysqli_real_escape_string($conn, $_POST['pass_status']);
     $loc="user_first=".$user_first."&user_last=".$user_last."&user_shortname=".$user_shortname."&user_uid=".$user_uid."&user_email=".$user_email."&user_role=".$user_role."&user_sec_profile=".$user_sec_profile."&user_timezone=".$user_timezone;
     
     $q = "SELECT * FROM users";
@@ -29,7 +30,7 @@ if (isset($_POST['usercreate'])) {
             } else {
                 if ($user_pass === $user_pass_repeat) {
                     $hashedpass = password_hash($user_pass, PASSWORD_DEFAULT);
-                    $q_create = "INSERT INTO users(user_first, user_last, user_shortname, user_email, user_role, user_uid, user_password, user_status, user_sec_profile, user_timezone) VALUES ('$user_first', '$user_last', '$user_shortname', '$user_email', '$user_role', '$user_uid', '$hashedpass', '$user_status', '$user_sec_profile','$user_timezone')";
+                    $q_create = "INSERT INTO users(user_first, user_last, user_shortname, user_email, user_role, user_uid, user_password, user_status, user_sec_profile, user_timezone, user_pass_status) VALUES ('$user_first', '$user_last', '$user_shortname', '$user_email', '$user_role', '$user_uid', '$hashedpass', '$user_status', '$user_sec_profile','$user_timezone','$pass_status')";
                     $db_q_create = mysqli_query($conn, $q_create);
                     if ($db_q_create) {
                         $q_created = "SELECT * FROM users WHERE  user_id=(SELECT MAX(user_id) FROM users)";

@@ -42,15 +42,6 @@ function checkTime(i) {
       i = "0" + i;
     }
     return i;
-}   
-
-function getUTCTime() {
-    var d = new Date();
-    var localTime = d.getTime();
-    var localOffset = d.getTimezoneOffset() * 60000;
-    var utc = localTime + localOffset;
-    
-    return utc;
 }
 
     
