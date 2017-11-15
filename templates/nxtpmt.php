@@ -65,6 +65,7 @@ Hi <?php echo $brwName;?>,
 
 
 <?php echo $bankname;?>
+<?php echo $lastfour;?>
 bank information
 
 

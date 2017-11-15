@@ -4516,6 +4516,150 @@ if ($_GET['cs'] == 1) {
         </div>
         <?php
     }elseif ($_GET['temp'] == 3) {
+       ?>
+        <div class="jumbotron">
+            <hr>
+            <div class="row">
+                <ul class="list-inline text-center">
+                    <li class="col-md-4">
+                        <a href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo --$back;?>" class="btn btn-success" role="button">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+								Previous Template
+                        </a>
+                    </li>
+                    <li class="col-md-4">
+                        <a href="rmmenu.php" class="btn btn-primary" role="button">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+								RM Menu
+						</a>
+                    </li>
+                    <li class="col-md-4">
+                        <a href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo ++$forth;?>" class="btn btn-success" role="button">
+							Next Template
+							<span class="glyphicon glyphicon-arrow-right"></span>
+						</a>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+						When will my funds be Deliver? 
+						<br>
+						<small>Customer asking about her deposit.</small>
+					</h2>
+					<font color="red">
+						<h5>
+							<b>Generate: </b>When a customer emails or calls the RM and says the funds have been not been deposited and wants to know when deposit will be done.
+							<br><br>
+							<b>Action: </b>Manual - Agent to edit and send
+						</h5>
+					</font>
+                </div>
+                <div class="col-md-9" id="embody" style="border-left: solid;">
+                    <?php
+					if($_GET['set'] == "on"){
+						//variables to complete template
+						$brwName = htmlspecialchars(trim($_GET['brwName']));
+						$start = strtotime($_GET['1stbd']);
+						//next Business day
+                        $currentYear = date('Y');
+                        $tmpDate = date('m/d/Y',$start);
+                        $holidays = [ 
+                            date("m/d/Y",mktime(0, 0, 0, 1, 1,$currentYear)), 
+                            date("m/d/Y",strtotime("3 Mondays", mktime(0, 0, 0, 1, 1, $currentYear))), 
+                            date("m/d/Y",strtotime("3 Mondays", mktime(0, 0, 0, 2, 1, $currentYear))), 
+                            date("m/d/Y",strtotime("last Monday of May $currentYear")), 
+                            date("m/d/Y",mktime(0, 0, 0, 7, 4, $currentYear)), 
+                            date("m/d/Y",strtotime("first Monday of September $currentYear")), 
+                            date("m/d/Y",strtotime("2 Mondays", mktime(0, 0, 0, 10, 1, $currentYear))), 
+                            date("m/d/Y",mktime(0, 0, 0, 11, 11, $currentYear)), 
+                            date("m/d/Y",strtotime("4 Thursdays", mktime(0, 0, 0, 11, 1, $currentYear))), 
+                            date("m/d/Y",mktime(0, 0, 0, 12, 25, $currentYear))
+                        ];
+                        
+                        $i = 1;
+                        $nextBusinessDay = date('m/d/Y', strtotime($tmpDate . ' +' . $i . ' Weekday'));
+                        
+                        while (in_array($nextBusinessDay, $holidays)) {
+                            $i++;
+                            $nextBusinessDay = date('m/d/Y', strtotime($tmpDate . ' +' . $i . ' Weekday'));
+                        }
+                        $day1 = date_create($_GET['1stbd']);
+                        $day2 = date_create($nextBusinessDay);
+						?>
+						<div>
+							<a class="btn btn-danger col-md-3" href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo $_GET['temp'];?>">
+									Reset
+								<span class="glyphicon glyphicon-refresh"></span>
+							</a>
+						</div>
+						<br>
+						<br>
+						<hr>
+						<div>
+						<!-- Email Temaplate -->
+						<p>
+							<strong>Subject:</strong> Your Spotloan deposit update
+						</p>
+						<br>
+						
+						<p>
+							Hi <?php echo $brwName;?>,
+						</p>
+						<br>
+						
+						<p>Thanks for contacting me. I hope you are well.</p>
+						<p>In regards to your e-mail, the funds arrive within 1-2 business days after you've confirmed the e-mail; these said,  funds were set to arrive either <?php echo date_format($day1,"l, F jS, Y"); ?> or <?php echo date_format($day2,"l, F jS, Y"); ?>, any time during business hours.</p>
+						<p>I recommend you stay in contact with your bank today so you can know when the funds will arrive. Let me know if you have any questions.</p>
+						<br>
+						<?php
+						include('includes/signature.inc.php');
+						?>	
+						</div>
+						<?php
+					}else{
+						?>
+						<h2 class="text-center">
+							Fill Out All Fiels
+						</h2>
+						<br>
+						<br>
+						<form class="fom form-vertical" method="get">
+							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
+							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="brwName">
+											Borrower´s First Name:
+										</label>
+										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+                                        <label for="1stbd">
+                                            First Business day for Deposit:
+                                        </label>
+                                        <input class="form-control" type="date" name="1stbd" required/>
+                                    </div>
+								</div>
+								<div class="col-md-4"></div>
+							</div>
+							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
+								Generate Email
+							</button>
+						</form>
+						<?php
+					}
+					?>
+                </div>
+            </div>
+        </div>
+        <?php
+    }elseif ($_GET['temp'] == 4) {
         ?>
         <div class="jumbotron">
             <hr>
@@ -4650,7 +4794,7 @@ if ($_GET['cs'] == 1) {
             </div>
         </div>
         <?php
-    }elseif ($_GET['temp'] == 4) {
+    }elseif ($_GET['temp'] == 5) {
         ?>
         <div class="jumbotron">
             <hr>
@@ -4727,7 +4871,7 @@ if ($_GET['cs'] == 1) {
 							Thanks for letting me know about the changes to your bank account. I really appreciate it! Everything has been updated in our system.
 						</p>
 						<p>
-							As a friendly reminder, your next payment of $[Scheduled Payment Amount] is due on [Next Scheduled Payment Date (Tuesday, January 7)], and will be pulled from your new [Bank Name] account ending in [Last 4 Digits Customer Bank Account].<
+							As a friendly reminder, your next payment of $<?php echo number_format($pmtAmt,2,".",","); ?> is due on <?php echo date_format($pmtdate,"l, F jS, Y"); ?>, and will be pulled from your new <?php echo $bankname;?> account ending in <?php echo $lastfour;?>.
 						</p>
 						<?php
 						include('includes/signature.inc.php');
@@ -4793,108 +4937,6 @@ if ($_GET['cs'] == 1) {
             </div>
         </div>
         <?php
-    }elseif ($_GET['temp'] == 5) {
-        ?>
-        <div class="jumbotron">
-            <hr>
-            <div class="row">
-                <ul class="list-inline text-center">
-                    <li class="col-md-4">
-                        <a href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo --$back;?>" class="btn btn-success" role="button">
-                            <span class="glyphicon glyphicon-arrow-left"></span>
-								Previous Template
-                        </a>
-                    </li>
-                    <li class="col-md-4">
-                        <a href="rmmenu.php" class="btn btn-primary" role="button">
-								<span class="glyphicon glyphicon-menu-hamburger"></span>
-								RM Menu
-						</a>
-                    </li>
-                    <li class="col-md-4">
-                        <a href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo ++$forth;?>" class="btn btn-success" role="button">
-							Next Template
-							<span class="glyphicon glyphicon-arrow-right"></span>
-						</a>
-                    </li>
-                </ul>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h2>
-						Template Name
-					</h2>
-					<font color="red">
-						<h5>
-							<b>Generate: </b>Copy and Paste 
-							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
-						</h5>
-					</font>
-                </div>
-                <div class="col-md-9" id="embody" style="border-left: solid;">
-                    <?php
-					if($_GET['set'] == "on"){
-						//variables to complete template
-						$brwName = htmlspecialchars(trim($_GET['brwName']));
-						
-						?>
-						<div>
-							<a class="btn btn-danger col-md-3" href="rmmenu.php?cs=<?php echo $_GET['cs'];?>&temp=<?php echo $_GET['temp'];?>">
-									Reset
-								<span class="glyphicon glyphicon-refresh"></span>
-							</a>
-						</div>
-						<br>
-						<br>
-						<hr>
-						<div>
-						<!-- Email Temaplate -->
-						<p>
-							Hi <?php echo $brwName;?>,
-						</p>
-						<br>
-						<?php
-						include('includes/signature.inc.php');
-						?>	
-						</div>
-						<?php
-					}else{
-						?>
-						<h2 class="text-center">
-							Fill Out All Fiels
-						</h2>
-						<br>
-						<br>
-						<form class="fom form-vertical" method="get">
-							<input type="hidden" name="cs" value="<?php echo $_GET['cs'];?>"/>
-							<input type="hidden" name="temp" value="<?php echo $_GET['temp'];?>"/>
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="brwName">
-											Borrower´s First Name:
-										</label>
-										<input class="form-control" type="text" placeholder="i. e. David" name="brwName" required/>
-									</div>
-								</div>
-								<div class="col-md-4"></div>
-								<div class="col-md-4"></div>
-							</div>
-							<button type="submit" name="set" class="btn btn-success" value="on" colspan="3">
-								Generate Email
-							</button>
-						</form>
-						<?php
-					}
-					?>
-                </div>
-            </div>
-        </div>
-        <?php
     }elseif ($_GET['temp'] == 6) {
        ?>
         <div class="jumbotron">
@@ -4925,15 +4967,13 @@ if ($_GET['cs'] == 1) {
             <div class="row">
                 <div class="col-md-3">
                     <h2>
-						Template Name
+						Request for More Funds Email
 					</h2>
 					<font color="red">
 						<h5>
-							<b>Generate: </b>Copy and Paste 
+							<b>Generate: </b>When someone contacts their RM asking if they can get a second loan.
 							<br>
-							<b>Template: </b>
-							<br>
-							<b>Action: </b>
+							<b>Action:</b> Manual - Agent to edit and send 
 						</h5>
 					</font>
                 </div>
@@ -4955,10 +4995,18 @@ if ($_GET['cs'] == 1) {
 						<hr>
 						<div>
 						<!-- Email Temaplate -->
+						<p><strong>Subject:</strong> Getting another loan with Spotloan</p><br>
 						<p>
 							Hi <?php echo $brwName;?>,
 						</p>
 						<br>
+						<p>Thanks for contacting me. At Spotloan, we offer only one loan at a time and these loans can’t be rolled over without paying off the loan.</p>
+					    <p>Here’s what we can do:</p>
+					    
+					    <p>-  I can work with you if you need to make any changes to your upcoming payment. I just need to know <b><u>2 business day</u></b> in advance.</p>
+					
+					    <p>-  After paying off your current loan, you can apply again – in most cases, <b>you’re guaranteed a second loan.</b></p>
+					    <p>Think about it and let me know what you want to do.</p>
 						<?php
 						include('includes/signature.inc.php');
 						?>	
@@ -6043,26 +6091,25 @@ if ($_GET['cs'] == 1) {
 
                 <div class="row">
                     <ul class="zest">
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=7">Request for an Email to be Resent</a></li>
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=8">Contact Information Change</a></li>	    
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=9">Attempt to Call</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=7">Contact Information Change</a></li>	    
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=8">Attempt to Call</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=9">Mailing Payment</a></li>
     	   
                     </ul>
                 </div>
                 <br>
                 <div class="row">
                     <ul class="zest">
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=10">Mailing Payment</a></li>
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=11">Voided Check</a></li>
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=12">All Other Situations</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=10">Voided Check</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=11">All Other Situations</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=12">Online account issues</a></li>
                     </ul>
                 </div>
                 <br>
                 <div class="row">
                     <ul class="zest">
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=13">Online account issues</a></li>
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=14">C2C confirmation Email</a></li>
-                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=15">Sold Account Check</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=13">C2C confirmation Email</a></li>
+                        <li class="col-sm-4"><a href="./rmmenu.php?cs=3&temp=14">Sold Account Check</a></li>
                     </ul>
                 </div>
                 <br>
